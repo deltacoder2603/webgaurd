@@ -1,84 +1,111 @@
-# Turborepo starter
+# 🌍 Decentralized Uptime Monitor
 
-This Turborepo starter is maintained by the Turborepo core team.
+## 📌 Overview
+This project is a **decentralized uptime monitoring system** that tracks whether a website is up or down. Instead of relying on a single centralized service, this system has **validators from around the world** who continuously check website status. Validators are **rewarded in crypto** for their work, making this a distributed and incentivized solution.
 
-## Using this example
+## 🚀 Features
+- **Global Validation:** Multiple validators verify website uptime from different locations.
+- **Crypto Incentives:** Validators are rewarded in cryptocurrency for accurate uptime checks.
+- **Trustless & Decentralized:** No single point of failure; verification is distributed.
+- **Real-Time Alerts:** Get notified when a website goes down.
 
-Run the following command:
+## 📂 Project Structure
+The repository follows a **monorepo structure** using **Turborepo**:
 
+```
+WEBGA...
+│── apps
+│   ├── api          # Backend API services
+│   ├── frontend     # Web-based frontend
+│   ├── hub          # Central coordination service
+│   ├── validator    # Validator nodes checking uptime
+│
+│── packages
+│   ├── common             # Shared utilities
+│   ├── db                 # Database configurations
+│   ├── eslint-config      # ESLint rules
+│   ├── typescript-config  # Shared TypeScript settings
+│   ├── ui                 # UI components
+│
+│── .gitignore
+│── .npmrc
+│── bun.lock
+│── package.json
+│── turbo.json             # Turborepo configuration
+│── README.md
+```
+
+## 🔧 Installation & Setup
+### Prerequisites
+- [Node.js](https://nodejs.org/)
+- [Bun](https://bun.sh/) (Recommended package manager)
+- Crypto wallet (for validator payments)
+- Docker (for database setup)
+
+### Clone the Repository
 ```sh
-npx create-turbo@latest
+git clone https://github.com/yourusername/uptime-monitor.git
+cd uptime-monitor
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+### Install Dependencies
+```sh
+bun install
 ```
 
-### Develop
+### Step-by-Step Setup
 
-To develop all apps and packages, run the following command:
-
+#### 1️⃣ Start the Database
+The system relies on a database to store uptime data. Run the database using Docker:
+```sh
+docker-compose up -d
 ```
-cd my-turborepo
-pnpm dev
-```
+(Ensure your `docker-compose.yml` is correctly set up in the `packages/db` directory.)
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+#### 2️⃣ Start the API Service
+Once the database is running, start the backend API:
+```sh
+bun run dev --filter=api
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+#### 3️⃣ Start the Hub Service
+The hub service coordinates communication between validators and the API:
+```sh
+bun run dev --filter=hub
 ```
 
-## Useful Links
+#### 4️⃣ Start the Validator Service
+The validators periodically check website uptime and report the status:
+```sh
+bun run dev --filter=validator
+```
 
-Learn more about the power of Turborepo:
+#### 5️⃣ Start the Frontend
+Finally, launch the frontend to access the web UI:
+```sh
+bun run dev --filter=frontend
+```
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Once all services are up and running, your uptime monitor will be fully functional! 🚀
+
+## 🔗 How It Works
+1. Website owners register their site for monitoring.
+2. Validators across the globe periodically check if the website is up.
+3. If a website is found down, validators submit proofs.
+4. Honest validators get rewarded in crypto.
+
+## 🏗️ Roadmap
+- [ ] Implement on-chain dispute resolution
+- [ ] Support for multiple cryptocurrencies
+- [ ] Web dashboard for real-time status tracking
+
+## 🤝 Contributing
+Pull requests are welcome! Feel free to open an issue or suggest new features.
+
+## 📜 License
+This project is licensed under the MIT License.
+
+---
+
+### 📌 Follow & Connect
+Let's build a decentralized future together! Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/srikant-pandey/) 🚀
