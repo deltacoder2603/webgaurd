@@ -1,0 +1,14 @@
+{
+  "name": "common",
+  "module": "index.ts",
+  "type": "module",
+  "exports": {
+    "./types": "./index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
